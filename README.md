@@ -1,2 +1,2 @@
 # Physical Disk Emulation
-Script
+script to setup a virtual disk that emulates the physical layout.
