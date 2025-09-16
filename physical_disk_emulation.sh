@@ -44,7 +44,7 @@ EOF
 
 read -r exfat_part disk_aux <<EOF
 $(lsblk -r -o NAME,SIZE,FSTYPE,LABEL | awk '
-    $3 == "exfat" && $4 == "WBRIDGE" {
+    $3 == "exfat" {
         part = $1
         disk_aux = gensub("p[0-9]", "", "g", $1);
         printf("/dev/%s /dev/%s\n", part, disk_aux);
