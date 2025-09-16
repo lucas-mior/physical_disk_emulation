@@ -150,7 +150,7 @@ echo "Created loop for aux disk beginning at $disk_aux_gpt_loop"
 echo "0                     $windows_c_part_start linear $disk_main_gpt_and_efi_loop 0"
 echo "$windows_c_part_start $windows_c_part_size  linear $windows_c_part             0"
 echo "$windows_c_part_end   $disk_main_rest       zero"
-} |  sed -E 's/ +/,/g' | column -t -s ',' > "$DISK_MAIN_TABLE"
+} | sed -E 's/ +/,/g' | column -t -s ',' > "$DISK_MAIN_TABLE"
 {
 echo "0                 $exfat_part_start linear $disk_aux_gpt_loop 0"
 echo "$exfat_part_start $exfat_part_size  linear $exfat_part        0"
