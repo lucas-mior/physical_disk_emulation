@@ -19,13 +19,15 @@ DISK_AUX_TABLE="/tmp/${DISK_AUX_MAPPED_NAME}_dmsetup.txt"
 nmapped="$(sudo dmsetup ls | wc -l)"
 nloops="$(sudo losetup -a | wc -l)"
 
-if [ "$nloops" -gt 0 ] || [ "$nmapped" -gt 4 ]; then
+if [ "$nloops" -gt 0 ] || [ "$nmapped" -gt 0 ]; then
     echo "Current mapped and loop devices:"
     set -x
     sudo dmsetup ls
     sudo losetup -a
     set +x
-    exit 1
+
+    echo "Check mapped and loop devices above. Press enter to continue."
+    read -r ok
 fi
 
 read -r efi_part disk_main <<EOF
@@ -41,7 +43,7 @@ read -r exfat_part disk_aux <<EOF
 $(lsblk -r -o NAME,SIZE,FSTYPE,LABEL | awk '
     $3 == "exfat" {
         part = $1
-        disk_aux = gensub("p[0-9]", "", "g", $1);
+        disk_aux = gensub("p?[0-9]$", "", "g", $1);
         printf("/dev/%s /dev/%s\n", part, disk_aux);
     }')
 EOF
@@ -59,9 +61,14 @@ check () {
         echo "$name detected $var"
     fi
 }
+check "disk_main"      "$disk_main"
+check "disk_aux"       "$disk_aux"
 check "exfat_part"     "$exfat_part"
 check "efi_part"       "$efi_part"
 check "windows_c_part" "$windows_c_part"
+
+echo "Check detected devices above. Press enter to continue."
+read -r ok
 
 main_block_size=$(blockdev --getss "$disk_main")
 aux_block_size=$(blockdev --getss "$disk_aux")
