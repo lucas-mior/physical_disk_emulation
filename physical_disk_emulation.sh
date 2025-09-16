@@ -6,9 +6,6 @@ export LC_ALL=C
 
 script_dir="$(dirname "$(which "$0")")"
 
-export RES="\033[0;m"
-export RED="\033[01;38;2;255;000;000m"
-
 DISK_MAIN_GPT_AND_EFI_IMAGE="${script_dir}/disk_main_gpt_and_efi.img"
 DISK_MAIN_MAPPED_NAME="windows_main_mapped_disk"
 DISK_MAIN_MAPPED_DEV="/dev/mapper/$DISK_MAIN_MAPPED_NAME"
