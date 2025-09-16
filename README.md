@@ -10,5 +10,5 @@ In order to run an existing windows instalation through
 disk to windows or else it won't work. If the disk is only used by windows,
 you are fine, just pass it. However, if you need some partition(s) of the disk
 on your linux host, you need to trick windows into thinking it has the entire
-disk for himself. For that we use loop devices and virtual mappings. Read the
+disk for itself. For that we use loop devices and virtual mappings. Read the
 script to understand it and modify to your needs.
