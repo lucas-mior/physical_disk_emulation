@@ -16,8 +16,6 @@ DISK_AUX_MAPPED_NAME="windows_aux_mapped_disk"
 DISK_AUX_MAPPED_DEV="/dev/mapper/$DISK_AUX_MAPPED_NAME"
 DISK_AUX_TABLE="/tmp/${DISK_AUX_MAPPED_NAME}_dmsetup.txt"
 
-BLOCK_SIZE=512
-
 nmapped="$(sudo dmsetup ls | wc -l)"
 nloops="$(sudo losetup -a | wc -l)"
 
@@ -101,25 +99,24 @@ done
 if [ ! -e "$DISK_MAIN_GPT_AND_EFI_IMAGE" ]; then
     size=0
 else
-    size="$(du -a -B "$BLOCK_SIZE" "$DISK_MAIN_GPT_AND_EFI_IMAGE" \
-            | awk '{print $1}')"
+    size="$(du -a -B 512 "$DISK_MAIN_GPT_AND_EFI_IMAGE" | awk '{print $1}')"
 fi
 if [ "$size" -ne "$windows_c_part_start" ]; then
     set -x
     dd if="$disk_main" of="$DISK_MAIN_GPT_AND_EFI_IMAGE" \
-        bs="$BLOCK_SIZE" count="$windows_c_part_start" status=progress
+        bs=512 count="$windows_c_part_start" status=progress
     set +x
 fi
 
 if [ ! -e "$DISK_AUX_GPT_IMAGE" ]; then
     size=0
 else
-    size="$(du -a -B "$BLOCK_SIZE" "$DISK_AUX_GPT_IMAGE" | awk '{print $1}')"
+    size="$(du -a -B 512 "$DISK_AUX_GPT_IMAGE" | awk '{print $1}')"
 fi
 if [ "$size" -ne "$exfat_part_start" ]; then
     set -x
     dd if="$disk_aux" of="$DISK_AUX_GPT_IMAGE" \
-        bs="$BLOCK_SIZE" count="$exfat_part_start" status=progress
+        bs=512 count="$exfat_part_start" status=progress
     set +x
 fi
 
