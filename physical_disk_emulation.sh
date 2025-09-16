@@ -187,10 +187,10 @@ disk_main_virtual_layout="disk_main_virtual_layout.txt"
 disk_aux_physical_layout="disk_aux_physical_layout.txt"
 disk_aux_virtual_layout="disk_aux_virtual_layout.txt"
 
-LC_ALL=C fdisk -l "$disk_main"            > "$disk_main_physical_layout"
-LC_ALL=C fdisk -l "$DISK_MAIN_MAPPED_DEV" > "$disk_main_virtual_layout"
-LC_ALL=C fdisk -l "$disk_aux"             > "$disk_aux_physical_layout"
-LC_ALL=C fdisk -l "$DISK_AUX_MAPPED_DEV"  > "$disk_aux_virtual_layout"
+fdisk -l "$disk_main"            > "$disk_main_physical_layout"
+fdisk -l "$DISK_MAIN_MAPPED_DEV" > "$disk_main_virtual_layout"
+fdisk -l "$disk_aux"             > "$disk_aux_physical_layout"
+fdisk -l "$DISK_AUX_MAPPED_DEV"  > "$disk_aux_virtual_layout"
 
 normalize() {
     sed -E -i '
