@@ -91,7 +91,7 @@ disk_aux_rest=$((disk_aux_size - exfat_part_start - exfat_part_size))
 
 for part in "$efi_part" "$windows_c_part" "$exfat_part"; do
     if mount | grep -q "^$part "; then
-        echo "Error: partition $part is currently mounted."
+        echo "Error: partition$RED $part $RES is currently mounted."
         exit 1
     fi
 done
