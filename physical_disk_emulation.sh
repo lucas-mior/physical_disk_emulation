@@ -85,13 +85,13 @@ if [ "$aux_block_size" != 512 ]; then
 fi
 
 disk_main_size=$(blockdev --getsz "$disk_main")
-windows_c_part_start=$(blockdev --report "$windows_c_part" | tail -1 | awk '{print $5}')
+windows_c_part_start=$(blockdev --report "$windows_c_part" | awk 'END{print $5}')
 windows_c_part_size=$(blockdev --getsz "$windows_c_part")
 windows_c_part_end=$((windows_c_part_start + windows_c_part_size))
 disk_main_rest=$((disk_main_size - windows_c_part_start - windows_c_part_size))
 
 disk_aux_size=$(blockdev --getsz "$disk_aux")
-exfat_part_start=$(blockdev --report "$exfat_part" | tail -1 | awk '{print $5}')
+exfat_part_start=$(blockdev --report "$exfat_part" | awk 'END{print $5}')
 exfat_part_size=$(blockdev --getsz "$exfat_part")
 exfat_part_final=$((exfat_part_start + exfat_part_size))
 disk_aux_rest=$((disk_aux_size - exfat_part_start - exfat_part_size))
