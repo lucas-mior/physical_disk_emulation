@@ -4,6 +4,7 @@ It is *not* intended to be run without modification.
 
 ## Disclaimer
 This script is dangerous and can make you loose data. Use it at your own risk.
+Also, it probably will mess up with your windows activation.
 
 ## Goal
 In order to run an existing windows instalation through
