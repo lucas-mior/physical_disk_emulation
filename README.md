@@ -1,5 +1,6 @@
 # Physical Disk Emulation
 Example script to setup a virtual disk that emulates the physical layout.
+It is *not* intended to be run without modification.
 
 ## Disclaimer
 This script is dangerous and can make you loose data. Use it at your own risk.
